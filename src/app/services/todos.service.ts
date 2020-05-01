@@ -10,8 +10,8 @@ export class TodosService {
 
   constructor() {
 
-    const lista1 = new Lista('Recolectar las piedras del infinito');
-    const lista2 = new Lista('Héroes a desaparecer');
+    const lista1 = new Lista('Aprender Angular');
+    const lista2 = new Lista('Aprender Ionic con Angular');
 
     this.listas.push(lista1, lista2);
   }
