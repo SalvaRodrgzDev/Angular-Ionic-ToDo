@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { TodosService } from 'src/app/services/todos.service';
+import { Lista } from 'src/app/models/lista.model';
+import { ListaItem } from 'src/app/models/lista-item.model';
 
 @Component({
   selector: 'app-agregar',
@@ -8,7 +11,27 @@ import { Router } from '@angular/router';
 })
 export class AgregarPage {
 
-  constructor() { 
+  lista: Lista;
+  nombreItem = '';
 
+  constructor(private todoService: TodosService,
+              private router: ActivatedRoute) { 
+
+    const listaId = this.router.snapshot.paramMap.get( 'listaId' )
+
+    this.lista = this.todoService.obtenerLista( listaId );
+  }
+
+  agregarItem() {
+
+    if ( this.nombreItem.length === 0 ) {
+      return;
+    }
+
+    const nuevoItem = new ListaItem( this.nombreItem );
+    this.lista.items.push(nuevoItem);
+
+    this.nombreItem = '';
+    this.todoService.guardarStorage();
   }
 }
